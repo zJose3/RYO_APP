@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080d1c">
+<title>RYO | La llave al nuevo mundo digital</title>
+
+<style>
+:root {
+  --bg:#080d1c;
+  --panel:#111a2d;
+  --panel2:#17233a;
+  --cyan:#21d4fd;
+  --blue:#3978ff;
+  --purple:#a855f7;
+  --white:#f4f7ff;
+  --muted:#91a0ba;
+  --border:rgba(255,255,255,.09);
+}
+* {box-sizing:border-box;margin:0;padding:0}
+body {
+  background:var(--bg);
+  color:var(--white);
+  font-family:system-ui,-apple-system,Segoe UI,sans-serif;
+  min-height:100vh;
+}
+button,input {font:inherit}
+button {cursor:pointer}
+.app {max-width:1100px;margin:auto;padding:18px 16px 100px}
+header {
+  display:flex;align-items:center;justify-content:space-between;
+  padding:8px 0 22px;border-bottom:1px solid var(--border);
+}
+.brand {display:flex;align-items:center;gap:10px}
+.logo-img {
+  width:142px;height:58px;object-fit:contain;display:block;
+  border-radius:10px;
+}
+.logo {
+  width:43px;height:43px;border-radius:14px;
+  display:grid;place-items:center;font-size:23px;font-weight:900;
+  background:linear-gradient(135deg,var(--cyan),var(--blue),var(--purple));
+  color:white;box-shadow:0 0 25px #3978ff55;
+}
+.brand h1 {font-size:25px;letter-spacing:3px}
+.brand small {display:block;color:var(--muted);font-size:10px;letter-spacing:.5px}
+.header-actions {display:flex;gap:9px}
+.icon-btn {
+  width:40px;height:40px;border:1px solid var(--border);
+  background:var(--panel);color:white;border-radius:13px;
+  display:grid;place-items:center;
+}
+svg {width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.search-wrap {margin:20px 0}
+.search {
+  width:100%;padding:14px 16px;border:1px solid var(--border);
+  border-radius:14px;background:var(--panel);color:white;outline:none;
+}
+.search:focus {border-color:var(--cyan)}
+.page {display:none;animation:appear .25s ease}
+.page.active {display:block}
+@keyframes appear {from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+.hero {
+  padding:25px 21px;border-radius:23px;position:relative;overflow:hidden;
+  background:linear-gradient(120deg,#12385a,#172b65 55%,#40216c);
+  border:1px solid #ffffff16;margin-bottom:23px;
+}
+.hero:after {
+  content:"";position:absolute;width:180px;height:180px;border-radius:50%;
+  background:#21d4fd22;right:-60px;top:-65px;filter:blur(3px);
+}
+.eyebrow {color:var(--cyan);font-size:11px;font-weight:800;letter-spacing:2px}
+.hero h2 {font-size:29px;line-height:1.15;margin:12px 0}
+.hero p {color:#d0ddf5;line-height:1.5;font-size:14px;max-width:500px}
+.primary {
+  border:0;border-radius:12px;padding:12px 17px;margin-top:18px;
+  color:#061322;font-weight:800;background:linear-gradient(100deg,var(--cyan),#7b8cff);
+}
+.section-title {font-size:19px;margin:22px 0 13px}
+.grid {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.tile,.card {
+  background:var(--panel);border:1px solid var(--border);
+  border-radius:17px;padding:17px;min-width:0;
+}
+.tile {text-align:left;color:white;transition:.2s}
+.tile:active {transform:scale(.97)}
+.tile .tile-icon {
+  width:43px;height:43px;border-radius:13px;display:grid;place-items:center;
+  background:#21d4fd18;color:var(--cyan);margin-bottom:13px;
+}
+.tile h3 {font-size:15px;margin-bottom:5px}
+.tile p,.muted {font-size:12px;color:var(--muted);line-height:1.5}
+.welcome {display:flex;align-items:center;gap:14px;margin:20px 0}
+.roxy {
+  width:65px;height:65px;flex-shrink:0;border-radius:20px;
+  display:grid;place-items:center;font-size:37px;
+  background:linear-gradient(135deg,#233d76,#572e88);
+}
+.roxy-img {
+  width:65px;height:65px;flex-shrink:0;object-fit:contain;
+  border-radius:16px;background:#fff;padding:2px;
+}
+.welcome h3 {font-size:16px;margin-bottom:4px}
+.page-heading {font-size:25px;margin:12px 0 7px}
+.page-intro {color:var(--muted);font-size:13px;margin-bottom:20px;line-height:1.5}
+.action-btn {
+  border:1px solid #21d4fd66;background:#102c43;color:var(--cyan);
+  padding:10px 13px;border-radius:11px;font-weight:700;font-size:12px;
+}
+.chat-box {
+  height:310px;overflow:auto;padding:13px;background:#0b1324;
+  border:1px solid var(--border);border-radius:16px;margin-bottom:12px;
+  display:flex;flex-direction:column;gap:10px;
+}
+.message {max-width:85%;padding:11px 13px;border-radius:14px;font-size:13px;line-height:1.5}
+.bot {align-self:flex-start;background:#1a2b48;color:#eaf5ff}
+.user {align-self:flex-end;background:#174e75;color:white}
+.chat-form {display:flex;gap:8px}
+.chat-form input {
+  flex:1;min-width:0;background:var(--panel);border:1px solid var(--border);
+  border-radius:12px;padding:12px;color:white;outline:none;
+}
+.send {width:47px;border:0;border-radius:12px;background:var(--blue);color:white}
+.product {display:flex;flex-direction:column;gap:9px}
+.product-visual {
+  height:105px;border-radius:13px;display:grid;place-items:center;
+  font-size:42px;background:linear-gradient(135deg,#172c4b,#25204a);
+}
+.product h3 {font-size:14px}
+.price {font-size:17px;font-weight:800;color:var(--cyan)}
+.product button {width:100%;margin-top:auto}
+.cart-line {display:flex;justify-content:space-between;gap:10px;padding:13px 0;border-bottom:1px solid var(--border);font-size:13px}
+.check-row {display:flex;align-items:center;gap:10px;padding:13px 0;border-bottom:1px solid var(--border);font-size:13px}
+.check-row input {accent-color:var(--cyan);width:18px;height:18px}
+.progress {height:8px;background:#25314a;border-radius:10px;overflow:hidden;margin:13px 0}
+.progress div {height:100%;width:0;background:linear-gradient(90deg,var(--cyan),var(--purple));transition:.3s}
+.lesson {margin-bottom:12px}
+.lesson button {width:100%;text-align:left;background:none;color:white;border:0}
+.lesson-detail {display:none;color:var(--muted);font-size:13px;line-height:1.6;padding-top:12px}
+.lesson.open .lesson-detail {display:block}
+.bottom-nav {
+  position:fixed;bottom:0;left:0;right:0;z-index:5;
+  background:#0d1526f5;backdrop-filter:blur(15px);
+  border-top:1px solid var(--border);display:flex;justify-content:center;
+  padding:9px 5px calc(9px + env(safe-area-inset-bottom));
+}
+.nav-inner {width:100%;max-width:600px;display:flex;justify-content:space-around}
+.nav-btn {
+  background:none;border:0;color:var(--muted);font-size:10px;
+  display:flex;flex-direction:column;align-items:center;gap:4px;padding:4px 8px;
+}
+.nav-btn svg {width:20px;height:20px}
+.nav-btn.active {color:var(--cyan)}
+.toast {
+  position:fixed;bottom:85px;left:50%;transform:translateX(-50%);
+  background:#203450;border:1px solid #ffffff22;color:white;
+  padding:11px 16px;border-radius:12px;font-size:12px;
+  opacity:0;pointer-events:none;transition:.25s;z-index:10;
+  width:max-content;max-width:90%;
+}
+.toast.show {opacity:1}
+.empty {color:var(--muted);font-size:13px;padding:16px 0}
+@media(max-width:380px) {
+  .logo-img {width:112px;height:50px}
+  .brand {gap:6px}
+  .brand small {font-size:8px}
+}
+@media(min-width:650px) {
+  .app {padding-top:25px}
+  .grid {grid-template-columns:repeat(3,minmax(0,1fr))}
+  .hero {padding:38px}
+  .hero h2 {font-size:38px}
+}
+</style>
+</head>
+
+<body>
+
+<!-- ICONOS SVG INTEGRADOS -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+  <symbol id="home" viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></symbol>
+  <symbol id="help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.5 9a2.6 2.6 0 1 1 4.5 1.8c-1.2 1.1-2 1.4-2 3.2M12 17.5h.01"/></symbol>
+  <symbol id="shop" viewBox="0 0 24 24"><path d="M3 9h18l-1.5 12h-15zM5 9l2-6h10l2 6M9 13v4m6-4v4"/></symbol>
+  <symbol id="zap" viewBox="0 0 24 24"><path d="m13 2-3 9h7L9 22l2-9H4z"/></symbol>
+  <symbol id="book" viewBox="0 0 24 24"><path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v18H6.5A2.5 2.5 0 0 1 4 17.5zM4 17.5A2.5 2.5 0 0 1 6.5 15H20"/></symbol>
+  <symbol id="search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="7"/><path d="m16 16 5 5"/></symbol>
+  <symbol id="cart" viewBox="0 0 24 24"><path d="M3 3h2l2.5 12h11L21 7H6M9 20h.01M18 20h.01"/></symbol>
+  <symbol id="send" viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4zM22 2 11 13"/></symbol>
+  <symbol id="settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="m19.4 15 .1.1 1.4 1.1-1.5 2.6-1.7-.6a8 8 0 0 1-1.5.9l-.3 1.8h-3l-.3-1.8a8 8 0 0 1-1.5-.9l-1.7.6-1.5-2.6 1.4-1.1a7 7 0 0 1 0-1.8l-1.4-1.1 1.5-2.6 1.7.6a8 8 0 0 1 1.5-.9l.3-1.8h3l.3 1.8a8 8 0 0 1 1.5.9l1.7-.6 1.5 2.6-1.4 1.1a7 7 0 0 1 0 1.8z"/></symbol>
+</svg>
+
+<div class="app">
+<header>
+  <div class="brand">
+    <img class="logo-img" src="assets/logo.png" alt="Logotipo oficial de RYO">
+    <div><h1>RYO</h1><small>LA LLAVE PARA EL NUEVO MUNDO DIGITAL</small></div>
+  </div>
+  <div class="header-actions">
+    <button class="icon-btn" onclick="showPage('cart')" aria-label="Carrito">
+      <svg><use href="#cart"/></svg>
+    </button>
+  </div>
+</header>
+
+<div class="search-wrap">
+  <input class="search" id="searchInput" placeholder="¿Qué estás buscando?" oninput="searchContent(this.value)">
+</div>
+
+<!-- INICIO -->
+<main id="homePage" class="page active">
+  <section class="hero">
+    <div class="eyebrow">BIENVENIDO AL FUTURO</div>
+    <h2>La tecnología,<br>en tus manos.</h2>
+    <p>Soluciones, dispositivos y conocimiento. Todo lo que necesitas para entrar al nuevo mundo digital.</p>
+    <button class="primary" onclick="showPage('help')">Explorar RYO →</button>
+  </section>
+
+  <div class="welcome">
+    <img class="roxy-img" src="assets/roxy.png" alt="Roxy, mascota de RYO">
+    <div><h3>¡Hola! Soy Roxy.</h3><p class="muted">Tu compañera en el mundo digital. ¿Qué vamos a resolver hoy?</p></div>
+  </div>
+
+  <h2 class="section-title">¿Qué necesitas hoy?</h2>
+  <div class="grid">
+    <button class="tile searchable" onclick="showPage('help')">
+      <div class="tile-icon"><svg><use href="#help"/></svg></div>
+      <h3>Asistencia</h3><p>Encuentra soluciones para tus problemas tecnológicos.</p>
+    </button>
+    <button class="tile searchable" onclick="showPage('shop')">
+      <div class="tile-icon"><svg><use href="#shop"/></svg></div>
+      <h3>Tienda</h3><p>Explora dispositivos y componentes tecnológicos.</p>
+    </button>
+    <button class="tile searchable" onclick="showPage('optimize')">
+      <div class="tile-icon"><svg><use href="#zap"/></svg></div>
+      <h3>Optimización</h3><p>Aprende a mejorar el rendimiento de tus equipos.</p>
+    </button>
+    <button class="tile searchable" onclick="showPage('learn')">
+      <div class="tile-icon"><svg><use href="#book"/></svg></div>
+      <h3>Aprender</h3><p>Desarrolla tus habilidades digitales.</p>
+    </button>
+  </div>
+</main>
+
+<!-- ASISTENCIA -->
+<section id="helpPage" class="page">
+  <h2 class="page-heading">Asistencia técnica</h2>
+  <p class="page-intro">Cuéntale a Roxy qué problema tienes. Esta es una demostración inicial del chat.</p>
+  <div class="card" style="margin-bottom:14px">
+    <div class="welcome" style="margin:0">
+      <img class="roxy-img" src="assets/roxy.png" alt="Roxy, mascota de RYO">
+      <div><h3>Roxy está aquí para ayudarte</h3><p class="muted">Asistente virtual de RYO</p></div>
+    </div>
+  </div>
+  <div class="chat-box" id="chatBox">
+    <div class="message bot">¡Hola! Soy Roxy 🐶. ¿Qué problema tienes con tu dispositivo? Cuéntamelo y buscaremos una solución.</div>
+  </div>
+  <form class="chat-form" onsubmit="sendMessage(event)">
+    <input id="chatInput" placeholder="Escribe tu problema..." autocomplete="off">
+    <button class="send" aria-label="Enviar"><svg><use href="#send"/></svg></button>
+  </form>
+</section>
+
+<!-- TIENDA -->
+<section id="shopPage" class="page">
+  <h2 class="page-heading">Tienda RYO</h2>
+  <p class="page-intro">Tecnología para cada necesidad. Productos de ejemplo para nuestro prototipo.</p>
+  <div class="grid" id="productGrid">
+    <article class="card product searchable">
+      <div class="product-visual">💻</div><h3>Portátil RYO Basic</h3>
+      <p class="muted">Equipo para estudio y trabajo.</p><div class="price">$1.200.000 COP</div>
+      <button class="action-btn" onclick="addCart('Portátil RYO Basic',1200000)">Añadir al carrito</button>
+    </article>
+    <article class="card product searchable">
+      <div class="product-visual">🖱️</div><h3>Mouse inalámbrico</h3>
+      <p class="muted">Comodidad para tu escritorio.</p><div class="price">$45.000 COP</div>
+      <button class="action-btn" onclick="addCart('Mouse inalámbrico',45000)">Añadir al carrito</button>
+    </article>
+    <article class="card product searchable">
+      <div class="product-visual">🎧</div><h3>Audífonos digitales</h3>
+      <p class="muted">Sonido para todos tus días.</p><div class="price">$85.000 COP</div>
+      <button class="action-btn" onclick="addCart('Audífonos digitales',85000)">Añadir al carrito</button>
+    </article>
+    <article class="card product searchable">
+      <div class="product-visual">⌨️</div><h3>Teclado mecánico</h3>
+      <p class="muted">Precisión y comodidad.</p><div class="price">$150.000 COP</div>
+      <button class="action-btn" onclick="addCart('Teclado mecánico',150000)">Añadir al carrito</button>
+    </article>
+  </div>
+</section>
+
+<!-- CARRITO -->
+<section id="cartPage" class="page">
+  <h2 class="page-heading">Tu carrito</h2>
+  <p class="page-intro">Aquí aparecerán los productos que quieras comprar.</p>
+  <div class="card">
+    <div id="cartItems"><p class="empty">Todavía no has añadido productos.</p></div>
+    <h3 style="margin-top:18px">Total: <span id="cartTotal" style="color:var(--cyan)">$0 COP</span></h3>
+    <button class="primary" style="width:100%" onclick="checkout()">Continuar</button>
+  </div>
+</section>
+
+<!-- OPTIMIZACION -->
+<section id="optimizePage" class="page">
+  <h2 class="page-heading">Optimización</h2>
+  <p class="page-intro">Pequeñas acciones pueden ayudarte a mantener tus dispositivos en buen estado.</p>
+  <div class="card">
+    <h3>Mi lista de mantenimiento</h3>
+    <p class="muted" style="margin-top:5px">Marca las tareas que hayas completado.</p>
+    <div class="progress"><div id="progressBar"></div></div>
+    <p class="muted" id="progressText">0 de 5 tareas completadas</p>
+    <label class="check-row"><input type="checkbox" class="task"> Revisar aplicaciones que no utilizo</label>
+    <label class="check-row"><input type="checkbox" class="task"> Comprobar el espacio disponible</label>
+    <label class="check-row"><input type="checkbox" class="task"> Actualizar el sistema y las aplicaciones</label>
+    <label class="check-row"><input type="checkbox" class="task"> Revisar archivos innecesarios antes de borrarlos</label>
+    <label class="check-row"><input type="checkbox" class="task"> Reiniciar el dispositivo si presenta fallos</label>
+  </div>
+  <div class="card" style="margin-top:14px">
+    <h3>Consejo de Roxy 🐶</h3>
+    <p class="muted" style="margin-top:8px">Evita instalar aplicaciones de limpieza desconocidas. Algunas pueden consumir recursos o poner en riesgo tus datos.</p>
+  </div>
+</section>
+
+<!-- APRENDER -->
+<section id="learnPage" class="page">
+  <h2 class="page-heading">Aprende con RYO</h2>
+  <p class="page-intro">El conocimiento digital abre nuevas oportunidades.</p>
+  <div class="card lesson">
+    <button onclick="toggleLesson(this)"><h3>01 · ¿Qué es el hardware? ＋</h3></button>
+    <div class="lesson-detail">El hardware es la parte física de un dispositivo: procesador, memoria RAM, pantalla, teclado, disco y otros componentes que puedes tocar.</div>
+  </div>
+  <div class="card lesson">
+    <button onclick="toggleLesson(this)"><h3>02 · ¿Qué es el software? ＋</h3></button>
+    <div class="lesson-detail">El software es el conjunto de programas e instrucciones que permiten que un dispositivo funcione, como Android, Windows o tus aplicaciones.</div>
+  </div>
+  <div class="card lesson">
+    <button onclick="toggleLesson(this)"><h3>03 · ¿Qué hace la memoria RAM? ＋</h3></button>
+    <div class="lesson-detail">La RAM almacena temporalmente los datos que el dispositivo necesita utilizar en ese momento. Al apagarlo, su contenido temporal se pierde.</div>
+  </div>
+  <div class="card lesson">
+    <button onclick="toggleLesson(this)"><h3>04 · ¿Qué es la ciberseguridad? ＋</h3></button>
+    <div class="lesson-detail">Es el conjunto de prácticas y tecnologías que ayudan a proteger tus dispositivos, cuentas y datos frente a amenazas digitales.</div>
+  </div>
+</section>
+
+</div>
+
+<!-- NAVEGACION INFERIOR -->
+<nav class="bottom-nav">
+  <div class="nav-inner">
+    <button class="nav-btn active" data-page="home" onclick="showPage('home')"><svg><use href="#home"/></svg>Inicio</button>
+    <button class="nav-btn" data-page="help" onclick="showPage('help')"><svg><use href="#help"/></svg>Asistencia</button>
+    <button class="nav-btn" data-page="shop" onclick="showPage('shop')"><svg><use href="#shop"/></svg>Tienda</button>
+    <button class="nav-btn" data-page="optimize" onclick="showPage('optimize')"><svg><use href="#zap"/></svg>Optimizar</button>
+    <button class="nav-btn" data-page="learn" onclick="showPage('learn')"><svg><use href="#book"/></svg>Aprender</button>
+  </div>
+</nav>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// NAVEGACION
+function showPage(page) {
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  const target=document.getElementById(page+'Page');
+  if(target) target.classList.add('active');
+
+  document.querySelectorAll('.nav-btn').forEach(b=>{
+    b.classList.toggle('active',b.dataset.page===page);
+  });
+  document.getElementById('searchInput').value='';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// MENSAJES
+function notify(message) {
+  const toast=document.getElementById('toast');
+  toast.textContent=message;
+  toast.classList.add('show');
+  clearTimeout(window.toastTimer);
+  window.toastTimer=setTimeout(()=>toast.classList.remove('show'),2400);
+}
+
+// CHAT DE DEMOSTRACION
+function sendMessage(event) {
+  event.preventDefault();
+  const input=document.getElementById('chatInput');
+  const text=input.value.trim();
+  if(!text) return;
+
+  addMessage(text,'user');
+  input.value='';
+
+  setTimeout(()=>{
+    let answer='Entiendo. 🐶 Para ayudarte mejor, dime qué dispositivo utilizas y qué ocurre exactamente.';
+
+    const t=text.toLowerCase();
+    if(t.includes('lento') || t.includes('lenta'))
+      answer='Si tu dispositivo está lento, podemos revisar las aplicaciones abiertas, el espacio disponible y las actualizaciones. ¿Es un celular o un computador?';
+    else if(t.includes('internet') || t.includes('wifi'))
+      answer='Primero comprueba si otros dispositivos pueden conectarse a la misma red. Después prueba reiniciar el router y activar y desactivar el Wi-Fi.';
+    else if(t.includes('pantalla'))
+      answer='Vamos a revisar ese problema. ¿La pantalla está negra, rota, congelada o presenta líneas?';
+    else if(t.includes('bateria') || t.includes('batería'))
+      answer='Revisa qué aplicaciones consumen más batería y si el dispositivo se calienta. ¿La batería se descarga rápido o no carga?';
+    else if(t.includes('hola'))
+      answer='¡Hola! 😄 Estoy lista para ayudarte. Cuéntame qué necesitas resolver.';
+
+    addMessage(answer,'bot');
+  },500);
+}
+
+function addMessage(text,type) {
+  const box=document.getElementById('chatBox');
+  const msg=document.createElement('div');
+  msg.className='message '+type;
+  msg.textContent=text;
+  box.appendChild(msg);
+  box.scrollTop=box.scrollHeight;
+}
+
+// CARRITO
+let cart=[];
+
+function addCart(name,price) {
+  cart.push({name,price});
+  updateCart();
+  notify('Producto añadido al carrito');
+}
+
+function updateCart() {
+  const container=document.getElementById('cartItems');
+  const total=cart.reduce((sum,item)=>sum+item.price,0);
+
+  if(cart.length===0) {
+    container.innerHTML='<p class="empty">Todavía no has añadido productos.</p>';
+  } else {
+    container.innerHTML='';
+    cart.forEach((item,index)=>{
+      const line=document.createElement('div');
+      line.className='cart-line';
+
+      const name=document.createElement('span');
+      name.textContent=item.name;
+
+      const right=document.createElement('span');
+      right.textContent='$'+item.price.toLocaleString('es-CO');
+
+      const remove=document.createElement('button');
+      remove.textContent=' ✕';
+      remove.style.cssText='background:none;color:#ff8294;border:0;margin-left:8px';
+      remove.onclick=()=>{
+        cart.splice(index,1);
+        updateCart();
+      };
+
+      right.appendChild(remove);
+      line.append(name,right);
+      container.appendChild(line);
+    });
+  }
+  document.getElementById('cartTotal').textContent='$'+total.toLocaleString('es-CO')+' COP';
+}
+
+function checkout() {
+  if(cart.length===0) {
+    notify('Tu carrito está vacío');
+    return;
+  }
+  notify('Esta tienda es una demostración. Aún no procesa pagos.');
+}
+
+// OPTIMIZACION
+document.querySelectorAll('.task').forEach(task=>{
+  task.addEventListener('change',updateProgress);
+});
+
+function updateProgress() {
+  const tasks=[...document.querySelectorAll('.task')];
+  const done=tasks.filter(t=>t.checked).length;
+  const percent=(done/tasks.length)*100;
+  document.getElementById('progressBar').style.width=percent+'%';
+  document.getElementById('progressText').textContent=done+' de '+tasks.length+' tareas completadas';
+}
+
+// APRENDIZAJE
+function toggleLesson(button) {
+  button.parentElement.classList.toggle('open');
+}
+
+// BUSCADOR
+function searchContent(query) {
+  const current=document.querySelector('.page.active');
+  if(!current) return;
+  const items=current.querySelectorAll('.searchable');
+  const q=query.toLowerCase().trim();
+
+  items.forEach(item=>{
+    item.style.display=item.textContent.toLowerCase().includes(q)?'':'none';
+  });
+}
+</script>
+</body>
+</html>
